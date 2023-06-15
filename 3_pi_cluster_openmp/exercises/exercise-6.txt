@@ -1,6 +1,0 @@
-When run on the Ringo server:
-
-Cutoff of 250:   0.652535 seconds
-Cutoff of 4000:  0.108998 seconds
-Cutoff of 8000:  0.095961 seconds
-Cutoff of 16000: 0.098981 seconds

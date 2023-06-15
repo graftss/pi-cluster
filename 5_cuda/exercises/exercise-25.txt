@@ -1,5 +1,0 @@
-When run on the Yoko server:
-
-100 nonzero elements per row: 122.969215ms
-250 nonzero elements per row: 306.622375ms
-500 nonzero elements per row: 608.937134ms

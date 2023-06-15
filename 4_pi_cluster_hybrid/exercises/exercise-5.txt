@@ -1,9 +1,0 @@
-The collapse clause should be added to the OpenMP directive on line 61, making the new directive:
-
-#pragma omp parallel for shared(A,B,C) collapse(2)
-
-From Exercise 4:  3.252332 seconds
-With collapse(2): 3.401268 seconds
-With collapse(3): 3.251490 seconds
-
-The results indicate that using collapse(2) is a little worse than no collapse clause, and that collapse(3) does about as well as no collapse clause. Neither shows signs of being much better than the original program.

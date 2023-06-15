@@ -1,8 +1,0 @@
-When histogram-globalmem.cu is executed on Yoko:
-N=10000:   0.201ms
-N=1000000: 0.677ms
-
-When histogram-sharedmem.cu is executed on Yoko: 
-
-N=10000:   0.270ms
-N=1000000: 0.801ms

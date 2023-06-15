@@ -1,6 +1,0 @@
-When run on the Ringo server:
-
-With 1 thread:  0.36552 seconds
-With 2 threads: 0.36846 seconds
-With 3 threads: 0.37842 seconds
-With 4 threads: 0.38038 seconds

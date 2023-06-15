@@ -1,7 +1,0 @@
-See "./exercise-4-output.png" for a screenshot of the output associated with this exercise.
-
-When run on 1 node:  8.922955 seconds
-When run on 2 nodes: 4.661796 seconds (1.914x speedup)
-When run on 3 nodes: 3.252332 seconds (2.744x speedup)
-
-We aren't getting a full 3x speedup by using 3 nodes, but it's within 90% of that.

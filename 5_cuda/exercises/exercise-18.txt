@@ -1,1 +1,0 @@
-On the Yoko servers, correct results were observed for N being 128 and 256. Incorrect values were consistently observed for N being 512 and 1024.

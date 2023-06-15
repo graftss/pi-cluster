@@ -1,6 +1,0 @@
-The following two commands set the available OpenMP threads to 1, then run the hybrid-primes program using 4 processes per cluster node:
-
-export OMP_NUM_THREADS=1
-time mpiexec -n 12 -hostfile hostfile.txt ./hybrid-primes
-
-The execution time on the 3-node cluster was 4.281 seconds, which is slightly higher than what was observed in Exercise 2 (close enough that the difference could be due to noise, rather than the hybrid approach being better than this approach).
