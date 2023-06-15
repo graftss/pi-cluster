@@ -9,3 +9,5 @@ The document is split into five sections:
 3. Parallel C programming using multiple cores of a single cluster node using OpenMP (Open Multi-Processing).
 4. Hybrid parallel C programming using both MPI and OpenMP.
 5. An additional section on CUDA programming, which can't be completed on the Raspberry Pi cluster. 
+
+Each section is precompiled in its own directory as `main.pdf`.
