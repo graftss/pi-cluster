@@ -1,0 +1,12 @@
+When run on the Ringo server:
+
+With 2 threads: 0.500755 seconds
+With 3 threads: 0.400771 seconds
+
+There are 10 elements of the linked list, and each element takes 0.1 seconds for a thread to process. 
+
+With 2 threads, each thread processes 5 elements evenly and it takes about 0.5 seconds. With 3 threads, one thread processes 4 elements and the other two threads process 3 elements each, taking 0.4 seconds (where during the last 0.1 seconds, two threads are idle).
+
+Following this rule, we can expect 4 threads to take about 0.3 seconds, where two threads process 3 elements and the other two threads process 2 elements. We can confirm this by running it:
+
+With 4 threads: 0.300747 seconds

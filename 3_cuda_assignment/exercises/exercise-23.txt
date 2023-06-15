@@ -1,0 +1,5 @@
+To store A as a traditional two-dimensional array, we need 1000x1000 float values stored contiguously in memory. Since each float is 4 bytes, we need 4 million bytes in total.
+
+To store A in the CSR encoding, first note that since A has two nonzero values per row, there are 2000 nonzero values in total. For each such value, the CSR encoding requires a float (for the value itself) and an int (for the value's column index). Additionally, we need an integer value for each row of A to make up the row_ptr array.
+
+In total, this is 2000 floats and 3000 ints, for a total of 20000 bytes of memory.

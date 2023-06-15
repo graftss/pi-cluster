@@ -1,0 +1,56 @@
+\begin{figure}
+\begin{Verbatim}[frame=single]
+#include <stdio.h>
+#include <unistd.h>
+#include <mpi.h>
+
+void run_scheduler_process(int process_count) {
+  int next_server = 1, next_data = 1;
+  while (1) {
+    MPI_Send(&next_data, 1, MPI_INT, next_server, 
+             0, MPI_COMM_WORLD);
+    next_data++;
+    next_server++;
+    if (next_server == process_count) next_server = 1;
+    usleep(300000);
+  }
+}
+
+void run_server_process(int rank, char* hostname) {
+  int data, request_complete;
+  MPI_Request request;
+  while (1) {
+    MPI_Irecv(&data, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, &request);
+    request_complete = 0;
+    while (!request_complete) {
+      MPI_Test(&request, &request_complete, MPI_STATUS_IGNORE);
+      usleep(300000);
+    }
+    printf("Server %d received: %d\n", rank, hostname, data);
+  }
+}
+
+int main(int argc, char** argv) {
+  int rank, process_count, hostname_length;
+  char hostname[MPI_MAX_PROCESSOR_NAME];
+
+  MPI_Init(&argc, &argv);
+  MPI_Comm_size(MPI_COMM_WORLD, &process_count);
+  MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+  MPI_Get_processor_name(hostname, &hostname_length);
+
+  if (rank == 0) {
+    printf("Starting scheduler (rank 0) on %s\n", hostname);
+    run_scheduler_process(process_count);
+  } else {
+    printf("Starting server (rank %d) on %s\n", rank, hostname);
+    run_server_process(rank, hostname);
+  }
+
+  MPI_Finalize();
+  return 0;
+}
+\end{Verbatim}
+    \caption{\texttt{roundrobin.c} code listing}
+    \label{code:roundrobin}
+\end{figure}

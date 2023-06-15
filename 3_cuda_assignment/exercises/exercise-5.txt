@@ -1,0 +1,13 @@
+When the parallel program is run on the Yoko server:
+
+N = 10000:   0.226816ms
+N = 100000:  0.260544ms
+N = 1000000: 3.216000ms
+
+When the serial program is run on the Yoko server:
+
+N = 10000:    0.071028ms
+N = 100000:   0.695531ms
+N = 1000000: 10.711551ms
+
+While the serial program wins out for the smallest value of N, the CUDA implementation outperforms it for the larger two values of N.

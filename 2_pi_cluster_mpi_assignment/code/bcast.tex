@@ -1,0 +1,55 @@
+\begin{figure}
+\begin{Verbatim}[frame=single]
+#include <mpi.h>
+#include <stdio.h>
+#include <time.h>
+
+#define TRIALS 10000
+#define COMM MPI_COMM_WORLD
+
+long long get_microsecond_timestamp() {
+  struct timespec ts;
+  clock_gettime(CLOCK_REALTIME, &ts);
+  return (ts.tv_sec) * 1e6 + ts.tv_nsec / 1e3;
+}
+
+void run_root_process(int data_size) {
+  int data[data_size];
+  long long start_time = get_microsecond_timestamp();
+  for (int trial = 0; trial < TRIALS; trial++) {
+    MPI_Bcast(&data, data_size, MPI_INT, 0, COMM);
+  }
+  long long duration = get_microsecond_timestamp() - start_time;
+  float average_duration = (float)duration / TRIALS;
+  printf("payload: %d bytes, avg bcast time: %.6f microseconds\n",
+	 sizeof(int) * data_size, average_duration);
+}
+
+void run_nonroot_process(int data_size) {
+  int data[data_size];
+  for (int trial = 0; trial < TRIALS; trial++) {
+    MPI_Bcast(&data, data_size, MPI_INT, 0, COMM);
+  }
+}
+
+int main(int argc, char** argv) {
+  int rank, world_size;
+  MPI_Init(&argc, &argv);
+  MPI_Comm_rank(COMM, &rank);
+  if (rank == 0) {
+    MPI_Comm_size(COMM, &world_size);
+    printf("Using %d \"bcast\" trials per payload.\n", TRIALS);
+    printf("Broadcasting to %d other processes.\n",
+	   world_size - 1);
+  }
+  for (int size = 1; size < (2 << 12); size *= 2) {
+    if (rank == 0) run_root_process(size);
+    else run_nonroot_process(size);
+  }
+  MPI_Finalize();
+  return 0;
+}
+\end{Verbatim}
+    \caption{\texttt{bcast.c} code listing}
+    \label{code:bcast}
+\end{figure}

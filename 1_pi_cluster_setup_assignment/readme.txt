@@ -1,0 +1,1 @@
+Expected to take students four weeks to complete (including time to find group partner(s) and ordering hardware).

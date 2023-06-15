@@ -1,0 +1,7 @@
+When the parallel program is run on the Yoko server:
+
+10 trials:      0.245504ms
+1000 trials:    0.581984ms
+100000 trials: 33.025345ms
+
+The runtimes show an increase of much less than 100x, the rate at which the number of trials increases. This is because for such a small program, the overhead of launching the CUDA kernel is quite large compared to the actual work being performed by the kernel.

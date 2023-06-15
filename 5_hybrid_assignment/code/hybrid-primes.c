@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <m1ath.h>
+#include <mpi.h>
+
+#define UPPER_LIMIT 10000000
+
+int is_prime(int number) {
+  if (number < 2) return 0;
+
+  for (int i = 2; i <= sqrt((double)number); i++) {
+    if (number % i == 0) return 0;
+  }
+
+  return 1;
+}
+
+int main(int argc, char** argv) {
+  int rank, process_count;
+
+  MPI_Init(&argc, &argv);
+  MPI_Comm_size(MPI_COMM_WORLD, &process_count);
+  MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+
+  int primes_found = 0;
+  int a = rank + 1;
+  int k = process_count + 1;
+  for (int n = a; n <= UPPER_LIMIT; n += k) {
+    if (is_prime(n) == 1) ++primes_found;
+  }
+
+  printf("process %d found %d primes\n", rank, primes_found);
+
+  int primes_found_total, primes_found_max, primes_found_min;
+  MPI_Reduce(&primes_found, &primes_found_total, 1, MPI_INT,
+	     MPI_SUM, 0, MPI_COMM_WORLD);
+  MPI_Reduce(&primes_found, &primes_found_max, 1, MPI_INT,
+	     MPI_MAX, 0, MPI_COMM_WORLD);
+  MPI_Reduce(&primes_found, &primes_found_min, 1, MPI_INT,
+	     MPI_MIN, 0, MPI_COMM_WORLD);
+
+  if (rank == 0) {
+    primes_found_total += is_prime(k);
+    printf("found %d primes less than or equal to %d\n",
+	   primes_found_total, UPPER_LIMIT);
+    printf("max found by one process = %d\n, primes_found_max);
+    printf("min found by one process = %d\n, primes_found_min);
+  }
+
+  MPI_Finalize();
+  return 0;
+}

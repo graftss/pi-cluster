@@ -1,0 +1,1 @@
+I spent some time playing with the SIMD directives on the OU Linux servers, but was unable to get any convincing results.

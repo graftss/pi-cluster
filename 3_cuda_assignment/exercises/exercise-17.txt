@@ -1,0 +1,9 @@
+When convolution1.cu is run on Yoko:
+
+Duration printed by the program:   877.806ms
+Kernel duration printed by nvprof: 877.66ms
+
+When convolution2.cu is run on Yoko:
+
+Duration printed by the program:   499.373ms
+Kernel duration printed by nvprof: 490.18ms

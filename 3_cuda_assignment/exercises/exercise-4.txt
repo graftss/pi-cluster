@@ -1,0 +1,7 @@
+When the serial program is run on the Yoko server:
+
+10 trials:      0.008916ms
+1000 trials:    0.479183ms
+100000 trials: 70.752070ms
+
+While the serial program does better for 10 and 1000 trials, the CUDA implementation overtakes it on the 100000 trial program, which is a large enough program that the parallelism of CUDA outweighs the overhead of the kernel launch.
